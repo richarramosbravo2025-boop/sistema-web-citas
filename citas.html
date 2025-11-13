@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reservar Citas – Clínica Fe y Alegría</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: #f8f9fa;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .header {
+      background: #C62828;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 3.5rem;
+      font-weight: bold;
+    }
+
+    .header a {
+      color: white !important;
+      text-decoration: none;
+      font-size: 3.5rem;
+    }
+
+    .navbar-links {
+      background: white;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 12px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .navbar-links a {
+      text-decoration: none;
+      color: #333;
+      padding: 6px 16px;
+      font-weight: 500;
+      border-radius: 6px;
+      transition: 0.2s;
+    }
+
+    .navbar-links a:hover,
+    .navbar-links a.active {
+      background: #C62828;
+      color: white !important;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 25px 0;
+      color: #C62828;
+      font-weight: 700;
+    }
+
+    .card-pro {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 35px;
+    }
+
+    footer {
+      background: white;
+      padding: 15px;
+      text-align: center;
+      color: #888;
+      margin-top: 40px;
+      border-top: 1px solid #ddd;
+    }
+
+    .btn-danger {
+      background: #C62828 !important;
+      border: none;
+    }
+
+    .btn-danger:hover {
+      background: #A61717 !important;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div><i class="bi bi-calendar-heart"></i> Clínica “Fe y Alegría”</div>
+    <div>
+      Usuario: <strong>Administrador</strong>
+      <a href="login.html" class="ms-3"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</a>
+    </div>
+  </header>
+
+  <nav class="navbar-links">
+    <a href="index.html">Inicio</a>
+    <a href="servicios.html">Servicios Médicos</a>
+    <a href="especialistas.html">Especialistas</a>
+    <a href="multimedia.html">Multimedia</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="reportes.html">Reportes</a>
+    <a href="citas.html" class="active">Reservar Citas</a>
+  </nav>
+
+  <main class="container">
+
+    <h2><i class="bi bi-calendar-check"></i> Reservar Cita Médica</h2>
+
+    <div class="card-pro">
+      <form id="frm-cita" class="row g-3">
+
+        <div class="col-md-4">
+          <label class="form-label">Nombre del Paciente</label>
+          <input type="text" class="form-control" name="paciente" required>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Especialidad</label>
+          <select class="form-select" name="especialidad" id="sel-especialidad" required></select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Fecha</label>
+          <input type="date" class="form-control" name="fecha" required>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Hora</label>
+          <input type="time" class="form-control" name="hora" required>
+        </div>
+
+        <div class="col-md-8">
+          <label class="form-label">Motivo</label>
+          <input type="text" class="form-control" name="motivo" required>
+        </div>
+
+        <div class="col-12 text-end">
+          <button class="btn btn-danger">
+            <i class="bi bi-plus-circle"></i> Reservar
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="card-pro">
+      <h5 class="text-center text-danger mb-3">📋 Citas Registradas</h5>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle text-center">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Paciente</th>
+              <th>Especialidad</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Motivo</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tb-citas"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    Clínica Privada “Fe y Alegría” · Potosí, Bolivia
+  </footer>
+
+  <div class="modal fade" id="modalPago">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title"><i class="bi bi-qr-code-scan"></i> Pago de la Cita – 100 Bs</h5>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body text-center">
+          <p class="fw-bold">Escanee el código QR para realizar el pago</p>
+          <img id="qr-img" class="img-fluid mb-3" style="max-width:250px;">
+          <p class="text-muted">Luego presione confirmar.</p>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-success fw-bold" onclick="confirmarPago()">
+            <i class="bi bi-check-circle"></i> He pagado – Confirmar Cita
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalEditar">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header bg-warning">
+          <h5 class="modal-title"><i class="bi bi-pencil-square"></i> Editar Cita</h5>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <form id="frm-edit" class="modal-body row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Paciente</label>
+            <input type="text" class="form-control" id="edit-paciente" name="paciente" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Especialidad</label>
+            <select class="form-select" id="edit-especialidad" name="especialidad"></select>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Fecha</label>
+            <input type="date" class="form-control" id="edit-fecha" name="fecha" required>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Hora</label>
+            <input type="time" class="form-control" id="edit-hora" name="hora" required>
+          </div>
+
+          <div class="col-md-12">
+            <label class="form-label">Motivo</label>
+            <input type="text" class="form-control" id="edit-motivo" name="motivo" required>
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-warning text-dark fw-bold" type="submit">Guardar Cambios</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+
+    let datosCita = null;
+    let editId = null;
+
+    async function cargarEspecialidades() {
+      const res = await fetch('api/especialistas.php');
+      const data = await res.json();
+
+      const esp = [...new Set(data.map(e => e.especialidad))];
+
+      sel = esp.map(e => `<option>${e}</option>`).join('');
+
+      document.getElementById('sel-especialidad').innerHTML = "<option>Seleccione...</option>" + sel;
+      document.getElementById('edit-especialidad').innerHTML = "<option>Seleccione...</option>" + sel;
+    }
+    cargarEspecialidades();
+
+    document.getElementById('frm-cita').addEventListener('submit', e => {
+      e.preventDefault();
+
+      datosCita = Object.fromEntries(new FormData(e.target).entries());
+
+      const txt =
+        `Pago por Cita Médica\nClínica Fe y Alegría\nMonto: 100 Bs\nPaciente: ${datosCita.paciente}`;
+
+      document.getElementById('qr-img').src =
+        `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(txt)}`;
+
+      new bootstrap.Modal('#modalPago').show();
+    });
+
+    async function confirmarPago() {
+      const res = await fetch('api/citas.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datosCita)
+      });
+
+      const r = await res.json();
+      alert(r.message);
+
+      bootstrap.Modal.getInstance(document.getElementById('modalPago')).hide();
+      document.getElementById('frm-cita').reset();
+      listarCitas();
+    }
+
+    async function listarCitas() {
+      const res = await fetch('api/citas.php');
+      const data = await res.json();
+
+      document.getElementById('tb-citas').innerHTML = data.map(c => `
+        <tr>
+          <td>${c.id}</td>
+          <td>${c.paciente}</td>
+          <td>${c.especialidad}</td>
+          <td>${c.fecha}</td>
+          <td>${c.hora}</td>
+          <td>${c.motivo}</td>
+
+          <td>
+            <button class="btn btn-warning btn-sm" onclick="editar(${c.id})">
+              <i class="bi bi-pencil"></i>
+            </button>
+
+            <button class="btn btn-danger btn-sm" onclick="eliminar(${c.id})">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+    listarCitas();
+
+    async function editar(id) {
+      editId = id;
+
+      const res = await fetch('api/citas.php?id=' + id);
+      const c = await res.json();
+
+      document.getElementById('edit-paciente').value = c.paciente;
+      document.getElementById('edit-especialidad').value = c.especialidad;
+      document.getElementById('edit-fecha').value = c.fecha;
+      document.getElementById('edit-hora').value = c.hora;
+      document.getElementById('edit-motivo').value = c.motivo;
+
+      new bootstrap.Modal('#modalEditar').show();
+    }
+
+    document.getElementById('frm-edit').addEventListener('submit', async e => {
+      e.preventDefault();
+
+      const datos = Object.fromEntries(new FormData(e.target).entries());
+
+      const res = await fetch(`api/citas.php?id=${editId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos)
+      });
+
+      const r = await res.json();
+      alert(r.message);
+
+      bootstrap.Modal.getInstance(document.getElementById('modalEditar')).hide();
+      listarCitas();
+    });
+
+    async function eliminar(id) {
+      if (!confirm("¿Eliminar esta cita?")) return;
+
+      const res = await fetch(`api/citas.php?id=${id}`, { method:'DELETE' });
+      const r = await res.json();
+
+      alert(r.message);
+      listarCitas();
+    }
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login – Clínica Fe y Alegría</title>
+
+  <!-- Estilos propios -->
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f3f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-card {
+      width: 360px;
+      background: #ffffff;
+      padding: 35px 30px;
+      border-radius: 14px;
+      box-shadow: 0 0 18px rgba(0,0,0,0.09);
+      text-align: center;
+    }
+
+    h2 {
+      margin: 0;
+      color: #c62828;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+
+    .small {
+      margin-top: 6px;
+      font-size: 0.9rem;
+      color: #444;
+    }
+
+    label {
+      display: block;
+      margin-top: 18px;
+      font-weight: 600;
+      text-align: left;
+      color: #333;
+    }
+
+    .input {
+      width: 100%;
+      padding: 10px 12px;
+      margin-top: 4px;
+      border-radius: 8px;
+      border: 1px solid #bbb;
+      background: #fafafa;
+      font-size: 0.95rem;
+    }
+
+    .btn {
+      width: 100%;
+      margin-top: 22px;
+      padding: 10px 0;
+      background: #c62828;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #ab1f1f;
+    }
+
+    .footer-text {
+      margin-top: 18px;
+      font-size: 0.85rem;
+      color: #555;
+    }
+  </style>
+
+  <script type="module">
+    import { login } from './js/auth.js';
+
+    async function onSubmit(e) {
+      e.preventDefault();
+
+      const usuario = document.querySelector('[name=usuario]').value.trim();
+      const contrasena = document.querySelector('[name=contrasena]').value.trim();
+
+      try {
+        const res = await login(usuario, contrasena);
+        if (res?.auth) {
+          window.location.href = 'index.html';
+        } else {
+          alert('Usuario o contraseña incorrectos');
+        }
+      } catch (err) {
+        alert('Error al iniciar sesión');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelector('#frmLogin').addEventListener('submit', onSubmit);
+    });
+  </script>
+</head>
+
+<body>
+  <div class="login-card">
+    <h2>Clínica Privada “Fe y Alegría”</h2>
+    <p class="small">Accede con tu cuenta</p>
+    
+    <form id="frmLogin">
+      <label>Usuario</label>
+      <input class="input" name="usuario" required>
+
+      <label>Contraseña</label>
+      <input class="input" type="password" name="contrasena" required>
+
+      <button class="btn" type="submit">Ingresar</button>
+    </form>
+
+    <p class="footer-text">¿Problemas para entrar? Contacta al administrador.</p>
+  </div>
+</body>
+</html>

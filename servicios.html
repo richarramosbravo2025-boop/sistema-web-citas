@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Servicios Médicos – Clínica Fe y Alegría</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/main.js"></script>
+
+  <style>
+    body {
+      background: #f5f6f7;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    header {
+      background: #c62828;
+      padding: 20px 30px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 3.5rem;
+      font-weight: bold;
+    }
+
+    header .user-box {
+      font-size: 3.5rem;
+    }
+
+    header .user-box a {
+      color: white;
+      margin-left: 12px;
+      text-decoration: none;
+    }
+
+    nav {
+      background: white;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 16px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 6px;
+      transition: .3s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: #d32f2f;
+      color: white;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #b71c1c;
+      margin-bottom: 35px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      padding: 25px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+      transition: .3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      color: #d32f2f;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      margin-top: 40px;
+      background: #f5f6f7;
+      color: black;
+      padding: 15px;
+      text-align: center;
+      font-size: .9rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div>Clínica Privada "Fe y Alegría"</div>
+
+    <div class="user-box">
+      Usuario: <strong data-user>Administrador</strong>
+      <a href="#" data-logout>Cerrar sesión</a>
+    </div>
+  </header>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="servicios.html" class="active">Servicios Médicos</a>
+    <a href="especialistas.html">Especialistas</a>
+    <a href="multimedia.html">Multimedia</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="reportes.html">Reportes</a>
+    <a href="citas.html">Reservar Citas</a>
+  </nav>
+
+  <main class="container">
+    <h2 class="section-title">Nuestros Servicios</h2>
+
+    <div class="card-grid">
+
+      <article class="card">
+        <h3>Consultas Generales</h3>
+        <p>Atención integral y control de enfermedades comunes.</p>
+      </article>
+
+      <article class="card">
+        <h3>Laboratorio Clínico</h3>
+        <p>Análisis de sangre, orina, hematología y pruebas especializadas.</p>
+      </article>
+
+      <article class="card">
+        <h3>Emergencias 24/7</h3>
+        <p>Personal de guardia para atención inmediata las 24 horas.</p>
+      </article>
+
+      <article class="card">
+        <h3>Especialidades Médicas</h3>
+        <p>Pediatría, Ginecología, Cardiología, Traumatología, Medicina Interna.</p>
+      </article>
+
+      <article class="card">
+        <h3>Imagenología</h3>
+        <p>Rayos X, Ecografía, Resonancias y diagnósticos por imagen.</p>
+      </article>
+
+      <article class="card">
+        <h3>Farmacia</h3>
+        <p>Medicamentos certificados con orientación profesional.</p>
+      </article>
+
+    </div>
+  </main>
+
+  <footer>
+    Clínica Privada "Fe y Alegría"
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multimedia – Clínica POTOSÍ</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f8f9fa;
+      text-align: center;
+    }
+
+    .header {
+      text-align: center;
+      background: #c62828;
+      color: white;
+      padding: 15px 25px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
+      font-size: 2.2rem;
+      font-weight: bold;
+    }
+    .header .small {
+      text-align: center;
+      font-size: 3.5rem;
+      font-weight: normal;
+    }
+
+    nav {
+      background: #ffffff;
+      padding: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      border-bottom: 2px solid #ddd;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: #d32f2f;
+      color: white;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    h2.section-title {
+      text-align: center;
+      font-size: 1.8rem;
+      color: #b71c1c;
+      margin-bottom: 25px;
+      font-weight: bold;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .gallery-card img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+
+    .gallery-card img:hover {
+      transform: scale(1.03);
+    }
+
+    .footer {
+      background: #f8f9fa;
+      color: black;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <h1><center>Clínica Privada "Fe y Alegría"</center></h1>
+    <span style="margin-left:auto" class="small">Usuario: <strong>Admin</strong></span>
+    <a href="#" class="small" style="margin-left:12px;color:white;">Cerrar sesión</a>
+  </header>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="servicios.html">Servicios Médicos</a>
+    <a href="especialistas.html">Especialistas</a>
+    <a href="multimedia.html" class="active">Multimedia</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="reportes.html">Reportes</a>
+    <a href="citas.html">Reservar Citas</a>
+  </nav>
+
+  <main class="container">
+    <h2 class="section-title">Galería Multimedia</h2>
+
+    <div id="galeria" class="gallery-grid"></div>
+  </main>
+
+  <footer class="footer">
+    Clínica Privada "Fe y Alegría"
+  </footer>
+  <script>
+    const imagenes = [
+      { nombre: "uno",    ruta: "js/uno.jpeg"},
+      { nombre: "dos",    ruta: "js/dos.jpg" },
+      { nombre: "tres",   ruta: "js/tres.jpeg" },
+      { nombre: "cuatro", ruta: "js/cuatro.jpg" },
+      { nombre: "cinco",  ruta: "js/cinco.jpg" },
+      { nombre: "seis",   ruta: "js/seis.jpeg" },
+      { nombre: "siete",  ruta: "js/siete.jpg" },
+      { nombre: "ocho",   ruta: "js/ocho.jpg" },
+      { nombre: "nueve",   ruta: "js/nueve.jpg" }
+    ];
+
+    const contenedor = document.getElementById("galeria");
+
+    imagenes.forEach(img => {
+      const card = document.createElement("div");
+      card.className = "gallery-card";
+
+      card.innerHTML = `
+        <img src="${img.ruta}" alt="${img.nombre}">
+      `;
+
+      contenedor.appendChild(card);
+    });
+  </script>
+
+</body>
+</html>
